@@ -42,7 +42,7 @@ namespace APICore
                 option.AddPolicy(AllowSpecificOrigins,
                     builder =>
                     {
-                        builder.WithOrigins("http://todolistcoreweb.herokuapp.com/")
+                        builder.WithOrigins("http://todolistcoreweb.herokuapp.com")
                                                   .AllowAnyHeader()
                                                   .AllowAnyMethod();
                     });
