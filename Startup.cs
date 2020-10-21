@@ -37,16 +37,16 @@ namespace APICore
                 options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
             // ¸ó°ìÅçÃÒ
-            //services.AddCors(option =>
-            //{
-            //    option.AddPolicy(AllowSpecificOrigins,
-            //        builder =>
-            //        {
-            //            builder.WithOrigins("https://localhost:44322")
-            //                                      .AllowAnyHeader()
-            //                                      .AllowAnyMethod();
-            //        });
-            //} );
+            services.AddCors(option =>
+            {
+                option.AddPolicy(AllowSpecificOrigins,
+                    builder =>
+                    {
+                        builder.WithOrigins("http://todolistcoreweb.herokuapp.com/")
+                                                  .AllowAnyHeader()
+                                                  .AllowAnyMethod();
+                    });
+            } );
 
 
             services.AddControllers();
@@ -112,7 +112,7 @@ namespace APICore
             app.UseAuthorization();
 
             // ¸ó°ìÅçÃÒ
-            //app.UseCors(AllowSpecificOrigins);
+            app.UseCors(AllowSpecificOrigins);
 
             app.UseEndpoints(endpoints =>
             {
