@@ -59,6 +59,7 @@ namespace APICore.Controllers
         }
 
         #region 給予Token
+        [ApiExplorerSettings(IgnoreApi = true)]
         public string GenerateToken(UserInfo userInfo, int expireYear = 1)
         {
             var issuer = _configuration.GetValue<string>("JwtSettings:Issuer");

@@ -17,6 +17,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.OpenApi.Models;
 
 namespace APICore
 {
@@ -50,7 +51,16 @@ namespace APICore
 
 
             services.AddControllers();
-
+            
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "ToDoList API",
+                    Description = "TodoList Web API"
+                });
+            });
             //目前知道的是這兩種寫法
             services.AddAutoMapper(typeof(Startup));//較常用
             //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -94,6 +104,7 @@ namespace APICore
                     };
                 });
             #endregion
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -105,6 +116,17 @@ namespace APICore
             }
 
             app.UseHttpsRedirection();
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.RoutePrefix = string.Empty;
+            });
 
             app.UseRouting();
 
